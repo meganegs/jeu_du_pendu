@@ -42,17 +42,32 @@ class App extends Component {
 
 
 
-  //function click
-
+    //fontion click sur les lettres
     clickLetter = (letter) => {
-        console.log("=>" + letter )
+    console.log("=>" + letter )
+
+
+
 
         //Vérifier que la lettre existe
-        if (this.state.usedLetter.indexOf(letter) == -1){
+          /* -> affichage lettre
+            -> changement d'état
+            ->gagner ou perdu */
+
+        if (this.state.usedLetter.indexOf(letter) === -1){
 
           const usedLetter = [letter, ...this.state.usedLetter]
 
-          this.setState({ usedLetter })
+          if( this.state.currentWord.indexOf(letter) === -1 ){
+              const tentative = this.state.tentative + 1
+              this.setState({ tentative })
+          } else {
+
+            this.setState({ usedLetter })
+        
+          } 
+
+
         
         } else {
 
@@ -70,11 +85,15 @@ class App extends Component {
         <div id="game">
          <h1> Pendu</h1>
 
-         <div>{this.state.currentWord}</div>
+          {this.state.tentative}
 
         {
           (this.state.currentWord !== null) && 
-          < CurrentWord />
+          <CurrentWord 
+          
+            currentWord={this.state.currentWord}
+            usedLetter={this.state.usedLetter}
+            /> 
 
         }
 

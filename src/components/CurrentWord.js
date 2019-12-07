@@ -3,18 +3,26 @@ import React from 'react'
 
 
 
-const CurrentWord = () => {
+const CurrentWord = ({CurrentWord, usedLetter}) => {
+
   return(
     <div>
-      {/* {
-        alphabet.map(
-          (letter, key) => {
-              return <button 
-                key={"letter_" + key}
-                onClick={ () => action(letter)}
-              > {letter} </button>
+      {
+        CurrentWord.split('').map(
+          (letter, key)=>{
+
+            let status ="finded"
+
+            if (usedLetter.indexOf(letter) === -1) {
+              status = "notfinded"
+            }
+
+            
+            return <span key={"letter_"+key} className={status}> 
+            {status == "finded" ? letter: "?"} </span>
           }
-        ) */}
+        )
+      
       }
     </div>
   )
